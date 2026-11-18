@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Overland-Navi – Offline-Navi für Pisten, Pässe und Funklöcher</title>
-<meta name="description" content="Offline-Karten, Navigation, Stellplätze und Standort teilen fürs Overlanding – auf iPhone, iPad und Android, ohne App Store.">
+<meta name="description" content="Offline-Karten, Navigation, Wanderwege, Stellplätze und Standort teilen fürs Overlanding – auf iPhone, iPad und Android, ohne App Store.">
 <meta name="theme-color" content="#ECEEE8">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -23,7 +23,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--stein); color: var(--tinte); font: 17px/1.55 var(--text); }
+body { margin: 0; overflow-x: hidden; background: var(--stein); color: var(--tinte); font: 17px/1.55 var(--text); }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--see); outline-offset: 3px; border-radius: 6px; }
@@ -54,7 +54,9 @@ h1 { font: 700 clamp(46px, 8.4vw, 92px)/0.92 var(--cond); letter-spacing: -0.5px
 .leg { position: relative; padding: 36px 0 64px; }
 .pin { position: absolute; left: -66px; top: 34px; width: 40px; height: 40px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--tinte); display: grid; place-items: center; box-shadow: 0 0 0 6px var(--stein); }
 .pin svg { transform: rotate(45deg); width: 20px; height: 20px; fill: none; stroke: #FFFFFF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.leg.last .pin { background: var(--piste); }
+.leg.last .pin, .leg.hike .pin { background: var(--piste); }
+.leg.hike::before { content: ""; position: absolute; inset: 8px -24px 24px -40px; border-radius: 28px; background: var(--karte); border: 1px solid var(--linie); z-index: -1; }
+.leg.hike { z-index: 0; }
 .leg-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: start; }
 h2 { font: 700 clamp(34px, 5vw, 50px)/1 var(--cond); margin: 0 0 6px; }
 .where { font: 700 19px/1.2 var(--cond); color: var(--see); margin: 0 0 18px; }
@@ -63,6 +65,8 @@ h2 { font: 700 clamp(34px, 5vw, 50px)/1 var(--cond); margin: 0 0 6px; }
 .leg li { padding: 9px 0 9px 26px; position: relative; border-top: 1px solid var(--linie); }
 .leg li::before { content: ""; position: absolute; left: 4px; top: 18px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--piste); }
 .shots { display: flex; gap: 16px; }
+.shots:has(img:nth-child(3)) img { width: 160px; }
+.shots img:nth-child(3) { margin-top: 0; }
 .shots img { width: 190px; border-radius: 22px; aspect-ratio: 780 / 1688; box-shadow: 0 1px 0 #fff inset, 0 18px 36px -18px rgba(28,43,43,.5); border: 1px solid var(--linie); }
 .shots img + img { margin-top: 48px; }
 
@@ -90,7 +94,11 @@ footer nav { display: flex; gap: 20px; }
   .brand { margin-bottom: 40px; }
   .phone { width: 240px; }
   .leg-grid { grid-template-columns: 1fr; gap: 24px; }
-  .shots img { width: min(44%, 170px); }
+  .shots { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-right: -18px; padding-right: 18px; scrollbar-width: none; }
+  .shots::-webkit-scrollbar { display: none; }
+  .shots img, .shots:has(img:nth-child(3)) img { width: min(44vw, 170px); flex-shrink: 0; scroll-snap-align: start; }
+  .shots img:nth-child(3) { margin-top: 0; }
+  .leg.hike::before { inset: 8px -10px 24px -50px; }
   .shots img + img { margin-top: 32px; }
   .cols { grid-template-columns: 1fr; gap: 28px; }
   .data { grid-template-columns: 1fr; gap: 12px; }
@@ -119,7 +127,7 @@ footer nav { display: flex; gap: 20px; }
     <div>
       <div class="brand"><img src="img/apple-touch-icon.png" alt="">Overland-Navi</div>
       <h1>Navi für Pisten, Pässe und Funklöcher</h1>
-      <p class="lead">Karten, Routen, Stellplätze und Wasserstellen auf dem iPhone, iPad oder Android-Handy – auch dort, wo seit Tagen kein Netz mehr war. Ohne App Store, ohne Konto, ohne Abo.</p>
+      <p class="lead">Karten, Routen, Wanderwege, Stellplätze und Wasserstellen auf dem iPhone, iPad oder Android-Handy – auch dort, wo seit Tagen kein Netz mehr war. Ohne App Store, ohne Konto, ohne Abo.</p>
       <div class="acts">
         <a class="btn go" href="/overland-navi/">App öffnen</a>
         <a class="btn" href="/overland-navi/handbuch.html">Handbuch lesen</a>
@@ -145,12 +153,13 @@ footer nav { display: flex; gap: 20px; }
         <ul>
           <li>Länder von Island bis Kirgistan, jedes einzeln zum Laden</li>
           <li>Google-Maps-Listen übernehmen, nach Land und Art sortiert</li>
-          <li>Eigene Listen und Kategorien anlegen, z. B. „Drohnen-Spots“</li>
+          <li>Eigene Listen und Kategorien anlegen, z. B. „Campspots“, und nach Ländern ein- und ausblenden</li>
         </ul>
       </div>
       <div class="shots">
         <img src="img/05-offline-karten.webp" alt="Liste der Länder zum Offline-Laden" loading="lazy" width="780" height="1688">
         <img src="img/36-google-import.webp" alt="Google-Listen übernehmen" loading="lazy" width="780" height="1688">
+        <img src="img/28-liste-laender.webp" alt="Eine eigene Liste, nach Ländern sortiert, mit Schaltern" loading="lazy" width="780" height="1688">
       </div>
     </div>
   </article>
@@ -171,6 +180,28 @@ footer nav { display: flex; gap: 20px; }
       <div class="shots">
         <img src="img/24-wasser-toiletten.webp" alt="Karte mit Wasserstellen und Toiletten" loading="lazy" width="780" height="1688">
         <img src="img/22-hybrid.webp" alt="Luftbild mit Straßennamen" loading="lazy" width="780" height="1688">
+      </div>
+    </div>
+  </article>
+
+  <article class="leg hike">
+    <span class="pin"><svg viewBox="0 0 24 24"><path d="m3 20 6-11 4 6 3-4 5 9ZM13.5 5.5a1.5 1.5 0 1 0 0-.01"/></svg></span>
+    <div class="leg-grid">
+      <div>
+        <h2>Wandern</h2>
+        <p class="where">Raus aus dem Auto, rauf auf den Berg</p>
+        <p>Wanderwege, Hütten und Touren sind fest eingebaut – für jedes geladene Land, auch offline. Die Farbe jedes Wegs zeigt, wie schwierig er ist, vom gemütlichen Wanderweg bis zum Alpinpfad.</p>
+        <ul>
+          <li>Wanderwege nach Schwierigkeit eingefärbt (SAC-Skala T1 bis T6), schwierige auf Wunsch ausblenden</li>
+          <li>Biwaks und Hütten in der Natur, dazu Aussichtspunkte, Wasserfälle, Burgen und Höhlen</li>
+          <li>Touren mit Länge, Höhenmetern, Höhenprofil, bester Jahreszeit und Infos zu Anreise und Gefahren</li>
+          <li>„Diesem Weg folgen“ führt zu Fuß über die Tour, „Route zum Startpunkt“ bringt dich mit dem Auto hin</li>
+        </ul>
+      </div>
+      <div class="shots">
+        <img src="img/18-wanderweg.webp" alt="Wanderwege mit Schwierigkeitsangabe" loading="lazy" width="780" height="1688">
+        <img src="img/20-tour.webp" alt="Tour Ala-Kul und Altyn-Arashan mit Länge und Höhenmetern" loading="lazy" width="780" height="1688">
+        <img src="img/19-wandermenue.webp" alt="Wander-Menü mit Biwaks, Hütten und Sehenswertem" loading="lazy" width="780" height="1688">
       </div>
     </div>
   </article>
