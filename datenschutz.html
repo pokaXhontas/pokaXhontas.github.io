@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datenschutz – Overland-Navi</title>
+<meta name="theme-color" content="#ECEEE8">
+<link rel="icon" href="img/icon-192.png">
+<style>
+:root {
+  --stein: #ECEEE8; --karte: #F8F9F5; --tinte: #1C2B2B; --grau: #56625F; --linie: #C4CCBF; --piste: #FF7A1A; --see: #2D6F8C;
+  --cond: "DIN Condensed", "DIN Alternate", "Bahnschrift SemiCondensed", "Roboto Condensed", "Arial Narrow", sans-serif;
+  --text: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--stein); color: var(--tinte); font: 17px/1.6 var(--text); }
+a { color: var(--see); }
+:focus-visible { outline: 3px solid var(--see); outline-offset: 3px; border-radius: 6px; }
+main { max-width: 720px; margin: 0 auto; padding: calc(env(safe-area-inset-top) + 32px) 24px 64px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 700 20px/1 var(--cond); text-decoration: none; color: var(--tinte); margin-bottom: 40px; }
+.brand img { width: 32px; height: 32px; border-radius: 8px; }
+h1 { font: 700 clamp(40px, 7vw, 64px)/0.95 var(--cond); margin: 0 0 12px; }
+h2 { font: 700 26px/1.1 var(--cond); margin: 40px 0 8px; }
+p, li { max-width: 66ch; }
+ul { padding-left: 1.2em; }
+li { margin: 6px 0; }
+.stand { color: var(--grau); }
+.kurz { background: var(--karte); border: 1px solid var(--linie); border-radius: 16px; padding: 18px 22px; margin: 24px 0; }
+.kurz p { margin: 0; }
+footer { max-width: 720px; margin: 0 auto; padding: 0 24px 48px; color: var(--grau); font-size: 15px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="/"><img src="img/icon-192.png" alt="" width="32" height="32">Overland-Navi</a>
+  <h1>Datenschutz</h1>
+  <p class="stand">Gilt für die Web-App unter pokaxhontas.github.io/overland-navi und die App „Overland-Navi“ für iPhone und iPad. Stand: November 2026.</p>
+
+  <div class="kurz"><p><b>Kurz gesagt:</b> Es gibt kein Konto, keine Werbung, keine Analyse- oder Tracking-Werkzeuge. Deine Orte, Tracks, Fotos und Einstellungen liegen nur auf deinem Gerät. Was du mit anderen teilst, wird auf deinem Gerät verschlüsselt; der Server sieht nur unlesbare Daten.</p></div>
+
+  <h2>Wer ist verantwortlich?</h2>
+  <p>Overland-Navi ist ein privates, nicht kommerzielles Projekt von pokaXhontas. Kontakt: über <a href="https://github.com/pokaXhontas">github.com/pokaXhontas</a>.</p>
+
+  <h2>Was auf deinem Gerät bleibt</h2>
+  <p>Orte, Listen, Kategorien, Tracks, Fotos, Notizen, Suchverlauf, heruntergeladene Karten und Einstellungen werden nur im Speicher der App auf deinem Gerät abgelegt. Sie werden nicht an uns übertragen. Löschst du die App bzw. die Website-Daten, ist alles weg.</p>
+  <p>Deine Position nutzt die App nur auf dem Gerät: für die Karte, die Navigation und Ansagen. Sie wird nicht gespeichert und nicht übertragen – außer du teilst sie ausdrücklich (siehe unten).</p>
+
+  <h2>Zugang zur App</h2>
+  <p>Damit nur eingeladene Personen die App nutzen, erzeugt sie beim ersten Start einen zufälligen Geräteschlüssel. Auf unserem Server (Cloudflare) wird davon nur ein Prüfwert gespeichert, zusammen mit dem Namen, den du bei der Anfrage eingibst, der Gerätebezeichnung (z. B. „iPhone“), dem Freigabestatus und dem Zeitpunkt der letzten Nutzung. Erlaubst du Mitteilungen, speichert der Server außerdem die Adresse, an die dein Gerät Mitteilungen empfängt. Verwalter der App sehen Name, Gerät und Status, um Zugänge zu erlauben oder zu sperren. Auf Wunsch löschen wir den Eintrag.</p>
+
+  <h2>Verbindungen und Standort teilen</h2>
+  <ul>
+    <li><b>Verbindungen</b> (Listen und Orte zwischen Geräten abgleichen): Die Daten werden auf deinem Gerät mit einem Schlüssel verschlüsselt, der nur im Verbindungscode steckt. Der Server (Cloudflare) speichert nur diese verschlüsselten Daten und kann sie nicht lesen. Entfernst du die Verbindung auf allen Geräten, werden sie nicht mehr abgeglichen.</li>
+    <li><b>Standort teilen:</b> Nur wenn du es einschaltest, sendet die App deine Position, Geschwindigkeit, Richtung, den angezeigten Namen und eine kurze Spur der letzten Stunden – verschlüsselt mit dem Schlüssel aus dem Code. Der Server speichert sie bis zum Ende der gewählten Dauer und löscht sie danach.</li>
+  </ul>
+
+  <h2>Dienste, die die App abruft</h2>
+  <p>Für Karten, Suche und Routen ruft die App öffentliche Dienste ab. Diese erfahren dabei, wie bei jedem Webseitenaufruf, deine IP-Adresse und den abgefragten Kartenausschnitt bzw. Suchbegriff – aber nicht, wer du bist:</p>
+  <ul>
+    <li>unser Karten-Server bei Cloudflare (Kartenkacheln aus OpenStreetMap/Protomaps, Wanderwege, Offline-Routen; Höhendaten von Mapterhorn)</li>
+    <li>Luftbilder: Esri (ArcGIS Online)</li>
+    <li>Suche: Photon (komoot) und Nominatim (OpenStreetMap)</li>
+    <li>Routen: OSRM (FOSSGIS/openstreetmap.de), Valhalla (openstreetmap.de), BRouter, Transitous (Bus &amp; Bahn)</li>
+    <li>Orte in der Nähe: Overpass-Server der OpenStreetMap-Gemeinschaft</li>
+    <li>die Web-App selbst wird über GitHub Pages ausgeliefert; die iPhone-App über Apple TestFlight bzw. den App Store</li>
+  </ul>
+  <p>Für diese Dienste gelten deren eigene Datenschutzerklärungen. Wir setzen keine Cookies und binden keine Werbe- oder Analysedienste ein.</p>
+
+  <h2>Deine Rechte</h2>
+  <p>Du kannst Auskunft über die zu dir gespeicherten Daten (Zugangseintrag) verlangen, ihre Löschung oder Berichtigung. Melde dich dazu über den oben genannten Kontakt. Alles, was nur auf deinem Gerät liegt, löschst du selbst in der App (Papierkorb leeren) oder indem du die App entfernst.</p>
+</main>
+<footer>Overland-Navi von pokaXhontas · <a href="/">Startseite</a> · <a href="/overland-navi/handbuch.html">Handbuch</a></footer>
+</body>
+</html>
